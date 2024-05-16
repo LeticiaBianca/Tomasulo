@@ -17,12 +17,12 @@ typedef struct {
 
     // FIXME: add fields for registers and functional unit
 
-    uint16_t emit;
-    uint16_t start;
-    uint16_t exec;
-    uint16_t write;
+    uint8_t emit;
+    uint8_t start;
+    uint8_t exec;
+    uint8_t write;
 } Instruction;
 
-void instruction_print(Instruction* i);
+void instruction_fmt(FILE* stream, Instruction* i);
 
 #endif
