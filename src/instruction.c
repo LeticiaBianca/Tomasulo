@@ -3,12 +3,12 @@
 #include "instruction.h"
 
 static const char* _inst_names[] = {
-	[Add] 		= "ADD",
-	[Sub] 		= "SUB",
-	[Mul] 		= "MUL",
-	[Div] 		= "DIV",
-	[Load] 		= "LOAD",
-	[Store] 	= "STORE",
+	[Add] 		= "add",
+	[Sub] 		= "sub",
+	[Mul] 		= "mul",
+	[Div] 		= "div",
+	[Load] 		= "load",
+	[Store] 	= "store",
 };
 
 void instruction_fmt(FILE* stream, Instruction* i)
