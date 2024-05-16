@@ -2,8 +2,9 @@ NAME        := tomasulo
 
 SRC_DIR     := src
 OBJ_DIR     := bin
-SRCS        := \
-	       main.c
+SRCS        := 		\
+	       main.c 	\
+	       instruction.c
 	
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
