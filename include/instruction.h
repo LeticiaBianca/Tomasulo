@@ -10,17 +10,17 @@ typedef enum {
     Div,
     Load,
     Store,
-} InstKind;
+} InstType;
 
 typedef struct {
-    InstKind kind;
+    InstType type;
 
     // FIXME: add fields for registers and functional unit
 
-    uint8_t emit;
-    uint8_t start;
-    uint8_t exec;
-    uint8_t write;
+    u8 emit;
+    u8 start;
+    u8 exec;
+    u8 write;
 } Instruction;
 
 void instruction_fmt(FILE* stream, Instruction* i);
