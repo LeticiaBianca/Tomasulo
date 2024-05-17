@@ -1,0 +1,5 @@
+div f0,f2,f4
+add f6,f0,f8
+sr f6,0(r1)
+sub f8,f10,f14
+mul f6,F10,F8
