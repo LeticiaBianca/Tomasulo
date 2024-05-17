@@ -1,21 +1,23 @@
-NAME        := tomasulo
+NAME := tomasulo
 
-SRC_DIR     := src
-OBJ_DIR     := bin
-SRCS        := 		\
-	       main.c 	\
-	       instruction.c
+SRC_DIR := src
+OBJ_DIR := bin
+SRCS    := 		\
+	main.c 	 	\
+	instruction.c 	\
+	station.c
+			
 	
-SRCS        := $(SRCS:%=$(SRC_DIR)/%)
-OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+SRCS := $(SRCS:%=$(SRC_DIR)/%)
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-CC          := gcc
-CFLAGS      := -Wall -Wextra -Werror
-CPPFLAGS    := -I include
+CC       := gcc
+CFLAGS   := -Wall -Wextra -Werror
+CPPFLAGS := -I include
 
-RM          := rm -f
-MAKEFLAGS   += --no-print-directory
-DIR_DUP     = mkdir -p $(@D)
+RM        := rm -f
+MAKEFLAGS += --no-print-directory
+DIR_DUP   = mkdir -p $(@D)
 
 all: $(NAME)
 
