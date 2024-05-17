@@ -1,9 +1,13 @@
 #include <stdio.h>
 
-#include "instruction.h"
-#include "station.h"
+#include "cli.h"
 
-int main(void)
+int main(int argc, char** argv)
 {
-    return 0;
+	Cli cli = {0};
+
+	cli_parse(&cli, argc, argv);
+
+	return 0;
 }
+

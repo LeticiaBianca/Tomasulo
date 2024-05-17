@@ -4,6 +4,7 @@ SRC_DIR := src
 OBJ_DIR := bin
 SRCS    := 		\
 	main.c 	 	\
+	cli.c		\
 	instruction.c 	\
 	station.c
 			
