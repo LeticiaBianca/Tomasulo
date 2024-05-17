@@ -4,10 +4,9 @@
 
 int main(int argc, char** argv)
 {
-	Cli cli = {0};
+    Cli cli = {0};
 
-	cli_parse(&cli, argc, argv);
+    cli_parse(&cli, argc, argv);
 
-	return 0;
+    return 0;
 }
-
