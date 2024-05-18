@@ -1,6 +1,6 @@
 #include "station.h"
 
-static const char* _station_names[] = {
+PRIVATE const char* _station_names[] = {
     [AddSub]  = "AddSub",
     [MulDiv]  = "MulDiv",
     [LdStore] = "LdStore",

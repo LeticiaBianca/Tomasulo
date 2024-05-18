@@ -2,7 +2,7 @@
 
 #include "instruction.h"
 
-static const char* _inst_names[] = {
+PRIVATE const char* _inst_names[] = {
     [Add]   = "add",
     [Sub]   = "sub",
     [Mul]   = "mul",

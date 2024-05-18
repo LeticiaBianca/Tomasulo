@@ -2,16 +2,16 @@
 
 #include "cli.h"
 
-static const char* doc = "Tomasulo's algorithm simulator";
+PRIVATE const char* doc = "Tomasulo's algorithm simulator";
 
-static const char* args_doc = "PATH";
+PRIVATE const char* args_doc = "PATH";
 
-static struct argp_option opts[] = {
+PRIVATE struct argp_option opts[] = {
     {"verbose", 'v', 0, false, "Produce verbose output", 0},
     {0},
 };
 
-static error_t parse_opt(int key, char* arg, struct argp_state* state)
+PRIVATE error_t parse_opt(int key, char* arg, struct argp_state* state)
 {
     Cli* cli = state->input;
 
