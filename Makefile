@@ -32,10 +32,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(info CREATED $@)
 
 clean:
-	$(RM) $(OBJS)
-
-fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(OBJS) $(NAME)
 
 re:
 	$(MAKE) fclean
