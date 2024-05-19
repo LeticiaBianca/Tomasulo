@@ -5,7 +5,7 @@
 
 typedef struct {
     char* path;
-    bool  verbose;
+    bool verbose;
 } Cli;
 
 void cli_parse(Cli* cli, int argc, char** argv);

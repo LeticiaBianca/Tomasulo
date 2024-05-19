@@ -13,8 +13,8 @@ typedef enum {
 } StationType;
 
 typedef struct {
-    StationId    id;
-    StationType  type;
+    StationId id;
+    StationType type;
     Instruction* inst;
 
     i64 vj;
