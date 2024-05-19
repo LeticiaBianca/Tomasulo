@@ -2,6 +2,7 @@
 #define INSTRUCTION_H
 
 #include "common.h"
+#include "register.h"
 
 typedef enum {
     Add,
@@ -15,7 +16,9 @@ typedef enum {
 typedef struct {
     InstType type;
 
-    // FIXME: add fields for registers and functional unit
+	Register r1; // First operand. 
+	Register r2; // Second operand.
+	Register rdest;
 
     u8 emit;
     u8 start;
