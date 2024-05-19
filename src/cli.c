@@ -50,7 +50,7 @@ PRIVATE error_t parse_opt(int key, char* arg, struct argp_state* state)
 
 void cli_parse(Cli* cli, int argc, char** argv)
 {
-    struct argp parser = {
+    const struct argp parser = {
         opts,
         parse_opt,
         args_doc,
