@@ -16,9 +16,9 @@ typedef enum {
 typedef struct {
     InstType type;
 
-	Register r1; // First operand. 
-	Register r2; // Second operand.
-	Register rdest;
+    Register r1; // First operand.
+    Register r2; // Second operand.
+    Register rdest;
 
     u8 emit;
     u8 start;
