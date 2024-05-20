@@ -3,6 +3,6 @@
 
 #include "common.h"
 
-typedef u8 Register;
+typedef char* Register;
 
 #endif
