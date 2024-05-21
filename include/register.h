@@ -14,53 +14,31 @@
 
 #ifndef REGISTER_STATUS_COLUMN_
 
-		/**
-		 * @name Information about register_status
-		 */
-		/**@{*/
-		#define	NOT_BUSY	FALSE	/**< got from reoder buffer */
-		#define BUSY		TRUE	/**< got from reoder buffer */
-		/**@}*/
-
-		/**
-		 * @brief Column of a register_status
-		 */
+		
+		#define	NOT_BUSY	FALSE	
+		#define BUSY		TRUE	
+		
 		typedef struct Register_status_column {
-			/**
-			 * @name register_status status
-			 */
-			/**@{*/
-			BOOL register_busy;   /**< the information if the register is busy */
-			/**@}*/
 			
-			/**
-			 * @name FP register status data
-			 */
-			/**@{*/
-			char* field;     /**< field with the destination of reorder buffer*/
-            		int reorder_entry;   /**<Position of the reordering buffer where the register is the destination of the result of the operation*/
-			/**@}*/
+			BOOL register_busy;  
+			
+			
+			char* field;     
+            		int reorder_entry;  
+			
 		} Register_status_column;
 
-#endif /* REGISTER_STATUS_COLUMN_ */
+#endif 
 
-	/**
-	 * @name register_status column controller
-	 */
-	/**@{*/
-	#define MAX_REGISTERS	 32	/**<Maximum ammount of possible registers in the table FP register status*/
-	/**@}*/
+	
+	#define MAX_REGISTERS	 32
 
 	typedef struct Register_status {
-		Register_status_column column[MAX_REGISTERS];	/**< column of our register status */
+		Register_status_column column[MAX_REGISTERS];	
 	} Register_status;
 
-#endif /* REGISTER_STATUS_ */
+#endif 
 
-/** 
- * @name register_status operations
- */
-/**@{*/
 extern Register_status* registerStatusInitializer();
 extern int insertRegisterStatus(char* fieldRegister, int entryReorderBuffer, Register_status* register_status);
 extern void printRegisterStatus(Register_status* register_status);

@@ -4,13 +4,6 @@
 #include <string.h>
 #include <stdio.h>
 
-/**
- * @brief Initializing Reservation_Station
- *
- * @details Instantiating a new Reservation Station
- *
- * @return Reference to the newly created reservation station
- */
 Reservation_Station* reservationStationInitializer(){
 	Reservation_Station* rs = (Reservation_Station*) malloc( sizeof(Reservation_Station) );
 	
@@ -68,14 +61,6 @@ Reservation_Station* reservationStationInitializer(){
 	return rs;
 }
 
-/**
- * @brief Release line containing reservation station of a functional unit
- *
- * @param rs Structure that contains the reserve station that will be released
- * @param positionRS Position where the reserve station is on the structure
- *
- * @details Release reservation station that had an instruction that has already been executed
- */
 void clearLineRS (Reservation_Station *rs, int positionRS) {
 	strcpy(rs->line[positionRS].instruction_op, "");
 	strcpy(rs->line[positionRS].value_register_read_Vj, "");
@@ -89,22 +74,6 @@ void clearLineRS (Reservation_Station *rs, int positionRS) {
 	rs->line[positionRS].position_destination_rb = -1;
 }
 
-/**
- * @brief Inserting new instruction into one of reservation station
- *
- * @param instruction to be added
- * @param reservationStation reservation to add the instruction
- * @param rb Reorder buffer
- *
- * @details Receives a new instruction and inserts it into the correct position of a reserve station of 
- * a functional unit.
- * It will check which is the reservation station for the instruction, and if there is not one available, 
- * -1 will be returned. If there is a reservation available, it will return in which line the instruction 
- * is waiting to be executed.
- *
- * @return If it's possible to add a new instruction, returns position where it was inserted.
- * If there's no free room, returns -1.
- */
 int insertInstructionRS(Instruction *instruction, Reservation_Station *reservationStation, Reorder_Buffer *rb){
 	int positionRS = -1, pos = 0;
 
@@ -151,7 +120,7 @@ int insertInstructionRS(Instruction *instruction, Reservation_Station *reservati
 		}
 		
 	} else {
-		printf("** Error: Instruction is not supported in this simulator!**\n");
+		printf("ERROR: Instruction is not supported.\n");
 	}
 
 	if (positionRS != -1) {
@@ -221,17 +190,7 @@ int insertInstructionRS(Instruction *instruction, Reservation_Station *reservati
 	return positionRS;
 }
 
-/**
- * @brief Find reservation station line according to position in reorder buffer
- *
- * @param rs 			Structure that holds all the lines of the reservation station
- * @param positionRB	Position in reorder buffer
- *
- * @details Find reservation station line according to position in reorder buffer
- *
- * @return 	Returns the line position of the reservation station that the position 
- * 			instruction is in the reorder buffer, or if no line is found, returns -1
-*/
+
 int findLineRSAccordingPositionRB (Reservation_Station *rs, int positionRB) {
 	int position_line_rs = -1;
 
@@ -246,32 +205,12 @@ int findLineRSAccordingPositionRB (Reservation_Station *rs, int positionRB) {
 	return position_line_rs;
 }
 
-/**
- * @brief Checks if the instruction performs writing
- *
- * @param nameInstruction Name of the instruction that will be parsed
- *
- * @details Checks if the instruction performs writing
- *
- * @return If the instruction performs writing, 1 will be returned, otherwise 0
-*/
+
 int dontDoWrite(char* nameInstruction) {
 	return ((strcmp(nameInstruction, "SW") == 0) || (strcmp(nameInstruction, "BEQ") == 0) || (strcmp(nameInstruction, "BNE") == 0));
 }
 
-/**
- * @brief Identify true dependency on a statement
- *
- * @param analyzed_register Register that will be analyzed if there is a true dependency
- * @param position Position in the reorder buffer of the instruction that contains the register that will be analyzed
- * @param rb Reorder Buffer
- *
- * @details Receives the register that will be analyzed if there is a true dependency and returns the position in the 
- * 			reorder buffer of the instruction that is depending
- *
- * @return If there is a dependency, the position in the reorder buffer of the instruction that the register depends 
- * 	       on will be returned, otherwise, if there is no dependency, -1 will be returned
-*/
+
 int warDependencyIdentifier(char *analyzed_register, int position, Reorder_Buffer *rb){
 	int	i = 0;
 	int result = -1;
@@ -279,15 +218,12 @@ int warDependencyIdentifier(char *analyzed_register, int position, Reorder_Buffe
 	if ( position >= 0 ) {
 		i = (position - 1) < 0 ? (rb->max_lines_rb_allocated - 1) : (position - 1) % rb->max_lines_rb_allocated;
 		
-		/* Retrieving the last dependecy found */
 		for ( i = init ; i != position; i = ((i + 1) % rb->max_lines_rb_allocated) ) {
 			char* instruction_operation = rb->line[i].instruction->splitted_instruction[0];
 
-			// If the instruction already has its result, or if it does not write to the register, there is no need to analyze the dependency
 			if ( rb->line[i].instruction_state == WRITE_RESULT || rb->line[i].instruction_state == COMMITED || (dontDoWrite(instruction_operation) == 1)) 
 				continue;
 
-			/* RAW (Read After Write) dependency */
 			if ( strcmp(rb->line[i].instruction->splitted_instruction[1], analyzed_register) == 0 ) {
 				result = i;
 			}
@@ -296,15 +232,10 @@ int warDependencyIdentifier(char *analyzed_register, int position, Reorder_Buffe
 	return result;
 }
 
-/**
- * @brief Prints the Reservation Station
- * 
- * @param reservationStation Reservation station to be printed
- *
- */
+
 void printReservationStation(Reservation_Station *reservationStation){
 	int	i = 0;
-	printf("\n\t\t\t\t\tReservation Station\n\n");
+	printf("\n----------Reservation Station----------");
 	printf("  Name\t\tBusy\tOp\t\tVj\t\tVk\t\tQj\tQk\tDest\tAddress\n");
 	for( i = 0; i < MAX_LINES_RS; i++ ) {
 		printf("  %s\t", reservationStation->line[i].name);
@@ -333,32 +264,3 @@ void printReservationStation(Reservation_Station *reservationStation){
 		printf("%s\n", (reservationStation->line[i].memory_address == NULL ? "-" : (strcmp(reservationStation->line[i].memory_address, "") == 0 ? "-" : reservationStation->line[i].memory_address)));
 	}
 }
-
-/**
- * @brief Freeing memory allocated to reorder buffer
- * 
- * @return NULL if reorder buffer is free, reorder buffer otherwise
- *
- * @details One should free memory using free() function to avoid memory leaks
- *
- */
-/*
-Reorder_Buffer* freesReorderBuffer(Reorder_Buffer *rb) {
-	int i = 0;
-    if (rb == NULL)
-		printf("** Error: Invalid reorder buffer!**\n");
-        return (NULL);
-    if (MAX_LINES < 1)
-    {
-        printf("** Error: Invalid MAX_LINES!**\n");
-        return (rb);
-    }
-    for (i = 0; i < MAX_LINES; i++) {
-		free(rb->line[i].instruction);
-		free(rb->line[i].instruction_destination);
-		free(rb->line[i].instruction_result);
-	}
-		
-    free(rb); */       /* Frees the reorder buffer */
-    /* return (NULL);
-}*/
