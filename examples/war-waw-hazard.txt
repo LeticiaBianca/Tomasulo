@@ -1,5 +1,5 @@
-div r0,r2,r4
-add r6,r0,r8
-sr r6,0(r1)
-sub r8,r10,r14
-mul r6,r10,r8
+DIV R0,R2,R4
+ADD R6,R0,R8
+SW R6,0(R1)
+SUB R8,R10,R14
+MUL R6,R10,R8

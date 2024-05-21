@@ -1,42 +1,17 @@
-NAME := tomasulo
+export CFLAGS = -Wall -Wextra -Werror
 
-SRC_DIR := src
-OBJ_DIR := bin
-SRCS    := 		\
-	main.c 	 	\
-	cli.c		\
-	instruction.c 	\
-	station.c
-			
-	
-SRCS := $(SRCS:%=$(SRC_DIR)/%)
-OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+CPPFLAGS = -I include
 
-CC       := gcc
-CFLAGS   := -Wall -Wextra -Werror
-CPPFLAGS := -I include
+.PHONY: initializer
 
-RM        := rm -f
-MAKEFLAGS += --no-print-directory
-DIR_DUP   = mkdir -p $(@D)
 
-all: $(NAME)
+all: initializer run clean
 
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
-	$(info CREATED $(NAME))
+initializer:
+	gcc $(CFLAGS) $(CPPFLAGS) src/*.c -o out
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(DIR_DUP)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
-	$(info CREATED $@)
+run:
+	@./out
 
 clean:
-	$(RM) $(OBJS) $(NAME)
-
-re:
-	$(MAKE) fclean
-	$(MAKE) all
-
-.PHONY: clean fclean re
-.SILENT:
+	@rm -f out
